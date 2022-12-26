@@ -1,5 +1,5 @@
-const sqlite3 = require("sqlite3");
-const path = require("path");
+import sqlite3 from "sqlite3";
+import path from "path";
 const pathFile = path.resolve("./src/connection/","database.db");
 
 const db = new sqlite3.Database(pathFile);
@@ -10,4 +10,4 @@ process.on("SIGINT", ()=>{
     })
 });
 
-module.exports = db;
+export default db;
