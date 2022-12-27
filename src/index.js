@@ -7,7 +7,11 @@ middleware(app, Express, cors)
 
 import db from "./connection/sqlite.js";
 
+import productController from "./controllers/productController.js";
+productController(app, db)
+
 import userController from "./controllers/userController.js";
 userController(app, db)
+
 
 export default app;

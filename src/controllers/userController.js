@@ -18,12 +18,15 @@ const userController = (app, db) => {
     } catch (error) {
       console.log(error);
     }
-  }),
-    app.post("/usuarios", (req, res) => {
+  })
+  app.post("/usuarios", (req, res) => {
       try {
         const SQL = `INSERT INTO usuarios(id, nome, email, senha) VALUES (?,?,?,?)`;
 
-        const newUser = new User(req.body.nome, req.body.email, req.body.senha);
+        const newUser = new User(
+          req.body.nome, 
+          req.body.email, 
+          req.body.senha);
         console.log(newUser);
 
         new Promise((resolve, reject) => {
@@ -44,7 +47,13 @@ const userController = (app, db) => {
       } catch (error) {
         console.log(error);
       }
-    });
+  })
+  app.put("/usuarios", (req, res) => {
+
+  })
+  app.delete("/usuarios", (req, res) => {
+    
+  })
 };
 
 export default userController;
