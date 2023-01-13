@@ -1,6 +1,6 @@
 import sqlite3 from "sqlite3";
 import path from "path";
-const pathFile = path.resolve("./src/connection/", "database.db");
+const pathFile = path.resolve("./src/connection/","database.db");
 
 const db = new sqlite3.Database(pathFile);
 
@@ -20,6 +20,14 @@ CREATE TABLE usuarios (
     senha VARCHAR(100)
 )`;
 
+const CART_SCHEMA = `
+CREATE TABLE carrinho (
+    id VARCHAR(50) PRIMARY KEY, 
+    userID VARCHAR(50) REFERENCES usuarios(id),
+    productID VARCHAR(50) REFERENCES produtos(id),
+    status VARCHAR(50)
+)`;
+
 const PRODUCTS_SCHEMA = `
 CREATE TABLE produtos (
     id VARCHAR(50) PRIMARY KEY,
@@ -28,20 +36,27 @@ CREATE TABLE produtos (
     valor FLOAT
 )`;
 
+function CreateTableProduct() {
+    db.run(PRODUCTS_SCHEMA, (error)=>{
+        if(error) console.log(error);
+    })
+}
+
+function CreateTableCart() {
+    db.run(CART_SCHEMA, (erro) => {
+        if(erro) console.log(erro);
+    });
+}
+
 function CreateTableUser() {
     db.run(USERS_SCHEMA, (erro) => {
         if(erro) console.log(erro);
     });
 }
 
-function CreateTableProduct() {
-    db.run(PRODUCTS_SCHEMA, (erro) => {
-        if(erro) console.log(erro);
-    });
-}
-
 db.serialize(() => {
-    enableForeignKey();
-    CreateTableProduct();
-    CreateTableUser();
-});
+     enableForeignKey();
+     CreateTableProduct();
+     CreateTableUser();
+     CreateTableCart();
+ });
