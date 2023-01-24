@@ -1,6 +1,6 @@
 import sqlite3 from "sqlite3";
 import path from "path";
-const pathFile = path.resolve("./src/connection/","database.db");
+const pathFile = path.resolve("/Users/rafaeldesousa/Cursos/Javascript/intensivao/projetosIntensivo/ecommerce/src/connection/database.db");
 
 const db = new sqlite3.Database(pathFile);
 process.on("SIGINT", ()=>{

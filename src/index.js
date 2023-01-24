@@ -13,5 +13,7 @@ productController(app, db)
 import userController from "./controllers/userController.js";
 userController(app, db)
 
+import cartController from "./controllers/cartController.js";
+cartController(app, db)
 
 export default app;

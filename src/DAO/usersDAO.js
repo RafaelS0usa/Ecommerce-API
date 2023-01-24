@@ -1,10 +1,10 @@
-class productDAO {
+class UsersDAO {
     constructor(database){
         this.db = database;
     }
     
-    GetAllProducts() {
-        const SQL = `SELECT * FROM produtos`;
+    GetAllUsers() {
+        const SQL = `SELECT * FROM usuarios`;
         return new Promise((resolve, reject) => {
             this.db.all(SQL, (erro, rows) => {
                 if(!erro){
@@ -16,10 +16,10 @@ class productDAO {
         });
     }
 
-    GetAnProduct(titulo) {
-        const SQL = `SELECT * FROM produtos WHERE id=?`;
+    GetAnUser(id) {
+        const SQL = `SELECT * FROM usuarios WHERE id=?`;
         return new Promise((resolve, reject) => {
-          this.db.all(SQL, titulo, (erro, rows) => {
+          this.db.all(SQL, id, (erro, rows) => {
             if (!erro) {
               resolve(rows);
             } else {
@@ -29,15 +29,15 @@ class productDAO {
         });
     }
 
-    InsertNewProduct(product){
-        const SQL = `INSERT INTO produtos(id, titulo, descricao, valor) VALUES (?,?,?,?)`;
+    InsertNewUsers(Users){
+        const SQL = `INSERT INTO usuarios(id, nome, email, senha) VALUES (?,?,?,?)`;
         return new Promise((resolve, reject) => {
             db.run(
                 SQL,
                 
                 (erro) => {
                     if(!erro) {
-                        resolve(res.status(200).json({msg: `${newProduct.titulo} inserido com sucesso`}));
+                        resolve(res.status(200).json({msg: `${newUsers.nome} inserido com sucesso`}));
                     } else {
                         reject(erro);
                     }
@@ -46,15 +46,15 @@ class productDAO {
         })
     }
 
-    UpdatingProduct(product){
-        const SQL = `UPDATE produtos SET titulo=?, descricao=?, valor=? WHERE id=?`;
+    UpdatingUser(Users){
+        const SQL = `UPDATE usuarios SET nome=?, email=?, senha=? WHERE id=?`;
         return new Promise((resolve, reject) => {
             this.db.run(
                 SQL,
-                [product.titulo, product.descricao, product.valor, product.id],
+                [Users.nome, Users.email, Users.senha, Users.id],
                 (error) => {
                     if(!error){
-                        resolve({msg: product})
+                        resolve({msg: Users})
                     } else {
                         reject({msg: error})
                     }
@@ -63,8 +63,8 @@ class productDAO {
         })
     }
 
-    DeletingProduct(titulo){
-        const SQL = `DELETE FROM produtos WHERE titulo = '${titulo}'`;
+    DeletingUsers(nome){
+        const SQL = `DELETE FROM usuarios WHERE nome= '${nome}'`;
         return new Promise((resolve, reject) => {
             this.db.run(
                 SQL, titulo, (error, rows) => {
@@ -78,4 +78,4 @@ class productDAO {
     }
 }
 
-export default productDAO;
+export default UsersDAO;
